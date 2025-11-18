@@ -1,0 +1,305 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 3,
+  "palette": {
+    "rosewater": "#f4dbd6",
+    "flamingo": "#f0c6c6",
+    "pink": "#f5bde6",
+    "mauve": "#c6a0f6",
+    "red": "#ed8796",
+    "maroon": "#ee99a0",
+    "peach": "#f5a97f",
+    "yellow": "#eed49f",
+    "green": "#a6da95",
+    "teal": "#8bd5ca",
+    "sky": "#91d7e3",
+    "sapphire": "#7dc4e4",
+    "blue": "#8aadf4",
+    "lavender": "#b7bdf8",
+    "text": "#cad3f5",
+    "subtext1": "#b8c0e0",
+    "subtext0": "#a5adcb",
+    "overlay2": "#939ab7",
+    "overlay1": "#8087a2",
+    "overlay0": "#6e738d",
+    "surface2": "#5b6078",
+    "surface1": "#494d64",
+    "surface0": "#363a4f",
+    "base": "#24273a",
+    "mantle": "#1e2030",
+    "crust": "#181926"
+  },
+  "final_space": true,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:red",
+          "template": ""
+        },
+        {
+          "type": "session",
+          "style": "plain",
+          "foreground": "p:crust",
+          "background": "p:red",
+          "template": "{{ if eq .UserName \"sahi_no\" }}{{ else }}{{ .UserName }}{{ end }} "
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:red",
+          "background": "p:peach",
+          "template": ""
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "background": "p:peach",
+          "foreground": "p:crust",
+          "template": " {{ .Path }} ",
+          "properties": {
+            "style": "agnoster_short",
+            "max_depth": 2,
+            "gitdir_format": " %s",
+            "mapped_locations": {
+              "~/Documents": "󰈙",
+              "~/Downloads": "",
+              "~/Music": "󰝚",
+              "~/Pictures": "",
+              "~/projects/admin-server": "  admin-server",
+              "~/projects/alpha ": "  alpha ",
+              "~/projects/architecture": "  architecture",
+              "~/projects/bug-report": "  bug-report",
+              "~/projects/cabal-config": "  cabal-config",
+              "~/projects/common-api": "  common-api",
+              "~/projects/common-auth": "  common-auth",
+              "~/projects/common-core": "  common-core",
+              "~/projects/common-crypto": "  common-crypto",
+              "~/projects/common-safety-control": "  common-safety-control",
+              "~/projects/cop": "  cop",
+              "~/projects/custom-bundles": "  custom-bundles",
+              "~/projects/documents": "  documents",
+              "~/projects/e2factory": "  e2factory",
+              "~/projects/end-to-end-test": "  end-to-end-test",
+              "~/projects/eslint-config-franka": "  eslint-config-franka",
+              "~/projects/fe-components": "  fe-components",
+              "~/projects/fe-webui": "  fe-webui",
+              "~/projects/franka-devtools": "  franka-devtools",
+              "~/projects/franka_description": "  franka_description",
+              "~/projects/franka_description_jenkins": "  franka_description_jenkins",
+              "~/projects/frontends-legacy": "  frontends-legacy",
+              "~/projects/impact_analysis": "  impact_analysis",
+              "~/projects/innolab": "  innolab",
+              "~/projects/jenkins": "  jenkins",
+              "~/projects/legacy-robot-descriptions": "  legacy-robot-descriptions",
+              "~/projects/mc7duallinux": "  mc7duallinux",
+              "~/projects/nginx-proxy": "  nginx-proxy",
+              "~/projects/pilot": "  pilot",
+              "~/projects/private": "  private",
+              "~/projects/race": "  race",
+              "~/projects/race-appserver": "  race-appserver",
+              "~/projects/race-com": "  race-com",
+              "~/projects/race-core": "  race-core",
+              "~/projects/ride-cli": "  ride-cli",
+              "~/projects/robot_urdf": "  robot_urdf",
+              "~/projects/rolex-statemachine-libs": "  rolex-statemachine-libs",
+              "~/projects/rolex-statemachines": "  rolex-statemachines",
+              "~/projects/safety-config-manager": "  safety-config-manager",
+              "~/projects/scripts": "  scripts",
+              "~/projects/statemachines": "  statemachines",
+              "~/projects/task-benchmark-runner": "  task-benchmark-runner"
+            },
+            "folder_separator_icon": "  "
+          }
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:peach",
+          "background": "p:yellow",
+          "template": ""
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "background": "p:yellow",
+          "foreground": "p:crust",
+          "template": " {{ (abbrev 30 .HEAD) }} ",
+          "properties": {
+            "fetch_status": true,
+            "branch_icon": " ",
+            "commit_icon": " ",
+            "tag_icon": " ",
+            "rebase_icon": " ",
+            "cherry_pick_icon": " ",
+            "revert_icon": " ",
+            "merge_icon": " ",
+            "no_commits_icon": " "
+          }
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "background": "p:yellow",
+          "foreground": "p:crust",
+          "template": " {{ .Working.String }}{{ if and (.Working.Changed) (.Staging.Changed) }} | {{ end }}{{ .Staging.String }} "
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:yellow",
+          "background": "p:green",
+          "template": ""
+        },
+        {
+          "type": "c",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ if .Full }}{{ .Full }}{{ end }} "
+        },
+        {
+          "type": "rust",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "go",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "node",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "php",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "java",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "kotlin",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "haskell",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "background": "p:green",
+          "foreground": "p:crust",
+          "template": "  {{ if .Venv }}(#{{ .Venv }}){{ end }}{{ if .Full }} {{ .Full }}{{ end }} ",
+          "properties": {
+            "display_mode": "environment"
+          }
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:green",
+          "background": "p:sapphire",
+          "template": ""
+        },
+        {
+          "type": "docker",
+          "style": "plain",
+          "background": "p:sapphire",
+          "foreground": "p:crust",
+          "template": "  {{ .Context }} "
+        },
+        {
+          "type": "conda",
+          "style": "plain",
+          "background": "p:sapphire",
+          "foreground": "p:crust",
+          "template": "  {{ .Environment }} ",
+          "properties": {
+            "display_mode": "environment"
+          }
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:sapphire",
+          "template": " "
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:green",
+          "template": "❯"
+        }
+      ]
+    },
+    {
+      "type": "rprompt",
+      "segments": [
+        {
+          "type": "executiontime",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "background": "p:lavender",
+          "foreground": "p:crust",
+          "template": "  {{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 2000,
+            "style": "austin"
+          }
+        },
+        {
+          "type": "time",
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:blue",
+          "template": " {{ .CurrentDate | date \"15:04\" }} ",
+          "properties": {
+            "time_format": "15:04"
+          }
+        }
+      ]
+    }
+  ],
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground_templates": [
+      "{{ if gt .Code 0 }}p:red{{ else }}p:green{{ end }}"
+    ],
+    "template": "❯ "
+  },
+  "secondary_prompt": {
+    "background": "transparent",
+    "foreground": "p:yellow",
+    "template": "❯❯ "
+  }
+}
