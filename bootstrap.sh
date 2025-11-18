@@ -4,7 +4,7 @@ set -euo pipefail
 DOTFILES_DIR="${HOME}/.dotfiles"
 
 # Set your actual repo here (or via env)
-REPO_URL="${DOTFILES_REPO_URL:-git@github.com:YOUR_USER/dotfiles.git}"
+REPO_URL="${DOTFILES_REPO_URL:-git@https://bitbucket.fe.lan/users/sahi_no/repos/dotfiles/browse/bootstrap.sh}"
 
 log() {
   printf '[dotfiles-bootstrap] %s\n' "$*" >&2
@@ -55,33 +55,33 @@ install_args=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --no-install)
-      no_install=true
-      shift
-      ;;
-    --branch)
-      if [[ $# -lt 2 ]]; then
-        log "--branch requires a value"
-        exit 1
-      fi
-      branch="$2"
-      shift 2
-      ;;
-    -h|--help)
-      usage
-      exit 0
-      ;;
-    --)
-      shift
-      # everything else is for install.sh
-      install_args=("$@")
-      break
-      ;;
-    *)
-      log "Unknown option for bootstrap: $1"
-      usage
+  --no-install)
+    no_install=true
+    shift
+    ;;
+  --branch)
+    if [[ $# -lt 2 ]]; then
+      log "--branch requires a value"
       exit 1
-      ;;
+    fi
+    branch="$2"
+    shift 2
+    ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  --)
+    shift
+    # everything else is for install.sh
+    install_args=("$@")
+    break
+    ;;
+  *)
+    log "Unknown option for bootstrap: $1"
+    usage
+    exit 1
+    ;;
   esac
 done
 
@@ -145,4 +145,3 @@ main() {
 }
 
 main "$@"
-
