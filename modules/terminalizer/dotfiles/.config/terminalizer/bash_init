@@ -1,0 +1,3 @@
+source $HOME/.bashrc
+PS1="\[\e[2m\]\[\e[1m\]user\[\e[2m\] at \[\e[1m\]franka\[\e[2m\] \$ \[\e[0m\]"
+
