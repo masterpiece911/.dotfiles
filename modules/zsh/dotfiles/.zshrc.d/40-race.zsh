@@ -1,5 +1,3 @@
-#!/bin/bash
-
 r() {
 	(cd ~/projects/race && poetry run race "$@")
 }

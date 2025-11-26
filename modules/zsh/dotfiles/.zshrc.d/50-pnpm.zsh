@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # pnpm
 export PNPM_HOME="/home/sahi_no/.local/share/pnpm"
 case ":$PATH:" in

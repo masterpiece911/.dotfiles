@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 # Replace ls globally
 alias ls='eza --group-directories-first --icons --git'
 
