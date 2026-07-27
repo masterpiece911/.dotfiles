@@ -55,7 +55,7 @@ frameBox:
 # the image on your machine or a URL, and you can also
 # add your own CSS styles
 watermark:
-  imagePath: /home/sahi_no/Documents/franka_logo.svg
+  imagePath: ~/.config/terminalizer/logo.svg
   style:
     position: absolute
     right: 16px
