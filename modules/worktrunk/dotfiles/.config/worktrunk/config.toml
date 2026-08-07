@@ -1,0 +1,210 @@
+# Worktrunk user config — https://worktrunk.dev/config/
+# Source: https://github.com/krawitzzZ/.config/blob/main/worktrunk/config.toml
+# Tuned for TypeScript, Haskell, and Rust repos (caches, agents, LLM commits).
+
+# Centralized worktrees: ~/projects/worktrees/myproject/feature-auth
+worktree-path = "~/projects/worktrees/{{ repo }}/{{ branch | sanitize }}"
+
+# --- LLM commit / squash / branch summaries (Cursor agent CLI is installed) ---
+[commit.generation]
+# Strip lockfile diffs before the agent so huge package-lock / Cargo.lock / etc.
+# hunks never enter the model context (see strip-lockfile-prompt.py).
+command = "python3 ~/.config/worktrunk/strip-lockfile-prompt.py | timeout --foreground --kill-after=5s 90s agent -p --trust --mode ask --model composer-2.5 | python3 ~/.config/worktrunk/plain-commit-message.py"
+template = """
+<task>
+Generate the Git commit message for the staged diff. Analyze silently.
+Return only JSON matching: {"subject":"...","body":"..."}.
+Use an empty body string when no body is needed.
+</task>
+
+<rules>
+{{ user_guidance }}
+</rules>
+
+<diffstat>
+{{ git_diff_stat }}
+</diffstat>
+
+<diff>
+{{ git_diff }}
+</diff>
+
+<context>
+Branch: {{ branch }}
+Repository: {{ repo }}
+</context>
+"""
+
+squash-template = """
+<task>
+Generate one Git commit message for the combined diff. Analyze silently.
+Return only JSON matching: {"subject":"...","body":"..."}.
+Use an empty body string when no body is needed.
+</task>
+
+<rules>
+{{ user_guidance }}
+</rules>
+
+<diffstat>
+{{ git_diff_stat }}
+</diffstat>
+
+<diff>
+{{ git_diff }}
+</diff>
+
+<context>
+Branch: {{ branch }}
+Target: {{ target_branch }}
+Repository: {{ repo }}
+</context>
+"""
+
+template-append = """
+Branch (authoritative for ticket rules): {{ branch }}
+
+RESPONSE CONTRACT — mandatory:
+- Perform any reasoning silently. Never print analysis, reasoning, rule checks, commentary, or justification.
+- Return exactly one JSON object with exactly two string fields: `subject` and `body`.
+- Put the plain commit subject in `subject`; put the optional plain-text body in `body`, or use `""`.
+- Do not use Markdown, code fences, labels, preamble, explanation, or text outside the JSON object.
+
+Choose the subject-line format using this decision tree (first match wins):
+
+1. Branch contains `pswh-<digits>` (case-insensitive):
+   - Format: `[PSWH-<digits>]: <Subject>`
+   - Copy <digits> from the branch. Uppercase the key as PSWH.
+   - Do not use feat/fix/chore/… and do not invent or change the number.
+   - Example: branch `pswh-123/fix-that` → `[PSWH-123]: Fix that in here and there`
+
+2. Branch contains `bfftrac-<digits>` (case-insensitive):
+   - Format: `[BFFTRAC-<digits>]: <Subject>`
+   - Same rules as PSWH (uppercase key, exact digits from branch).
+   - Example: branch `BFFTRAC-9/add-retry` → `[BFFTRAC-9]: Add retry around flaky fetch`
+
+3. Branch contains `innolab` or `IN-<digits>` (case-insensitive):
+   - Format: `[IN-<digits>]: <Subject>` or `[INNOLAB]: <Subject>` if no digits
+   - Same rules as PSWH/BFFTRAC (uppercase key, exact digits from branch).
+   - Example: branch `IN-123/upgrade-ghc` → `[IN-123]: Upgrade GHC to the latest version`
+
+4. Otherwise (no PSWH/BFFTRAC/IN/INNOLAB in the branch):
+   - Format: `<type>(optional-scope): <Subject>`
+   - <type> must be one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, boyscout
+   - Use `boyscout` only for small cleanup/hygiene with no ticket; otherwise pick the conventional type that fits the diff.
+   - Example: `feat(auth): Add refresh-token rotation`
+
+Subject rules (all formats):
+- Imperative mood, first letter of the subject text after : symbol is ALWAYS capital, no trailing period
+- ≤60 characters for the subject line
+- Describe the change, not the branch name
+
+Body:
+- Omit the body when the subject is enough
+- If needed: one blank line after the subject, then a short paragraph on why (not a file list)
+
+Hard constraints:
+- The `subject` value must contain only the plain-text subject, with no newline
+- The `subject` value must NEVER exceed 60 characters
+- The subject line must never start or end with a backtick (`), quote, or any other Markdown delimiter
+- Backticks are allowed only inside the `body` value when they meaningfully identify code
+- Never invent a PSWH/BFFTRAC/IN id; if the branch has none, do not use its bracket-ticket format
+- Never combine formats (wrong: `feat: [PSWH-123]: …` or `[PSWH-123] feat: …`)
+"""
+
+[commit]
+stage = "all"
+
+[list]
+# LLM one-liners in `wt list --full` / switch picker (needs commit.generation above)
+summary = true
+# Dev URL column is project-only — add to each repo's `.config/wt.toml`:
+#   [list]
+#   url = "http://localhost:{{ branch | hash_port }}"
+
+[merge]
+squash = true
+commit = true
+rebase = true
+remove = true
+verify = true
+ff = true
+
+[remove]
+delete-branch = true
+
+[switch]
+cd = true
+
+# --- Cold starts: copy gitignored caches into new worktrees (reflink when available) ---
+# Default copies all gitignored files. Prefer a repo `.worktreeinclude` to allowlist
+# (see worktreeinclude.example). These excludes skip venvs / absolute-path tool state.
+[step.copy-ignored]
+exclude = [
+  ".venv/",
+  "venv/",
+  "__pycache__/",
+  ".direnv/",
+  ".envrc.local",
+  # Nested package caches that are cheap to regenerate / often absolute-path sensitive
+  "**/.yarn/cache/",
+  "**/node_modules/.cache/",
+]
+
+# Background: share node_modules/, target/, dist-newstyle/, .stack-work/, .next/, etc.
+[post-start]
+copy = "wt step copy-ignored"
+
+# --- Shortcuts useful across TS / Haskell / Rust ---
+[aliases]
+# Navigation
+ls = "wt list {{ args }}"
+ll = "wt list --full {{ args }}"
+s = "wt switch {{ args }}"
+sc = "wt switch --create {{ args }}"
+# Switch to branch (create if missing) and open Zed
+sz = '''
+wt switch {{ args }} -x zed -- '{% raw %}{{ worktree_path }}{% endraw %}' \
+  || wt switch --create {{ args }} -x zed -- '{% raw %}{{ worktree_path }}{% endraw %}'
+'''
+
+# Agents in a fresh worktree (Cursor Agent)
+new-agent = "wt switch --create {{ args }} -x agent"
+
+# Per-worktree port (pair with Vite/webpack/warp/etc. --port)
+port = "echo {{ branch | hash_port }}"
+url = "echo http://localhost:{{ branch | hash_port }}"
+
+# Git helpers
+since = "git log --oneline {{ default_branch }}..HEAD"
+diff-main = "git diff {{ default_branch }}...HEAD"
+
+# Cache / cleanup
+copy = "wt step copy-ignored {{ args }}"
+prune = "wt step prune {{ args }}"
+
+# Commit helpers
+cm = "wt step commit {{ args }}"
+# Merge with $EDITOR instead of the LLM for this invocation
+mc = '''WORKTRUNK_COMMIT__GENERATION__COMMAND='f=$(mktemp); printf "\n\n" > "$f"; sed "s/^/# /" >> "$f"; ${EDITOR:-vi} "$f" < /dev/tty > /dev/tty; grep -v "^#" "$f"' wt merge {{ args }}'''
+
+# Carry WIP into a new worktree: wt move-changes --to=feature-xyz [-- agent]
+move-changes = '''
+if git diff --quiet HEAD && test -z "$(git ls-files --others --exclude-standard)"; then
+  wt switch --create {{ to }} --execute="{{ args }}"
+else
+  git stash push --include-untracked --quiet
+  wt switch --create {{ to }} --execute="git stash pop --index; {{ args }}"
+fi
+'''
+
+# Rebase every worktree onto its upstream
+up = '''
+git fetch --all --prune && wt step for-each -- sh -c '
+  git rev-parse --verify -q @{u} >/dev/null || exit 0
+  g=$(git rev-parse --git-dir)
+  test -d "$g/rebase-merge" -o -d "$g/rebase-apply" && exit 0
+  git update-index --refresh -q >/dev/null || true
+  git rebase @{u} --no-autostash || git rebase --abort
+'
+'''
