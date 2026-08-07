@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES_DIR="${HOME}/.dotfiles"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 MODULES_DIR="${DOTFILES_DIR}/modules"
 TARGET_DIR="${HOME}"
 
@@ -134,6 +134,14 @@ backup_if_needed() {
 
   # Only back up real files/dirs, not symlinks
   if [ -e "$path" ] && [ ! -L "$path" ]; then
+    # A Stow-managed directory can itself be a symlink while files beneath it
+    # appear regular. Never follow that directory back into this repository.
+    local resolved
+    resolved="$(readlink -f -- "$path")"
+    if [[ "$resolved" == "$DOTFILES_DIR/"* ]]; then
+      return
+    fi
+
     # Derive a relative path under TARGET_DIR, if possible
     local rel="$path"
     if [[ "$rel" == "$TARGET_DIR/"* ]]; then

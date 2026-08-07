@@ -1,0 +1,15 @@
+---
+description: Require Worktrunk isolation before branch implementation
+alwaysApply: true
+---
+
+# Worktrunk Worktrees
+
+Before implementing a feature, bugfix, refactor, or other branch-scoped change:
+
+1. Invoke the `worktrunk-worktrees` Skill.
+2. Do not edit files until that Skill confirms the agent is already in a linked
+   worktree or has moved Cursor to one created or selected with Worktrunk.
+3. Use `wt`, never `git worktree add` or another worktree-creation mechanism.
+
+Read-only investigation and planning may happen in the primary checkout.
