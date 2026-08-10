@@ -8,6 +8,9 @@ description: Creates or selects Worktrunk-managed git worktrees before feature, 
 Perform branch implementation only in a Worktrunk-managed linked worktree.
 Read-only investigation and planning may happen before isolation.
 
+Worktrees are created under `~/projects/worktrees/<repo>/<sanitized-branch>/`
+via the user Worktrunk config.
+
 ## 1. Detect existing isolation
 
 From the repository root, inspect Git without changing files:
