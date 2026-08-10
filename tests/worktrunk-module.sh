@@ -3,7 +3,7 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 module="${repo_root}/modules/worktrunk"
-plugin="${module}/dotfiles/.cursor/plugins/local/worktrunk-workflow"
+skill="${module}/dotfiles/.cursor/skills/worktrunk-worktrees/SKILL.md"
 config_dir="${module}/dotfiles/.config/worktrunk"
 tmpdir="$(mktemp -d)"
 trap 'rm -rf "${tmpdir}"' EXIT
@@ -21,20 +21,13 @@ PYTHONPYCACHEPREFIX="${tmpdir}/pycache" \
   "${config_dir}/strip-lockfile-prompt.py" \
   "${config_dir}/plain-commit-message.py"
 
-python3 - "${plugin}/.cursor-plugin/plugin.json" <<'PY'
-import json
-import sys
+test -f "${skill}"
+grep -Fq "wt switch --create" "${skill}"
+grep -Fq "move_agent_to_root" "${skill}"
+grep -Fq "~/projects/worktrees" "${skill}"
 
-with open(sys.argv[1], encoding="utf-8") as manifest:
-    data = json.load(manifest)
-
-assert data["name"] == "worktrunk-workflow"
-assert data["version"] == "1.0.0"
-PY
-
-grep -Fq "alwaysApply: true" "${plugin}/rules/worktrunk-worktrees.mdc"
-grep -Fq "wt switch --create" "${plugin}/skills/worktrunk-worktrees/SKILL.md"
-grep -Fq "move_agent_to_root" "${plugin}/skills/worktrunk-worktrees/SKILL.md"
+# Local Cursor plugins are not loaded on this setup (userLocal=false).
+test ! -e "${module}/dotfiles/.cursor/plugins"
 
 dry_run_output="$("${repo_root}/install.sh" --dry-run worktrunk 2>&1)"
 grep -Fq "Would run installer for worktrunk" <<<"${dry_run_output}"
@@ -51,5 +44,7 @@ HOME="${fixture_home}" "${fixture_repo}/install.sh" --no-installers worktrunk >/
 test -f "${fixture_repo}/modules/worktrunk/dotfiles/.config/worktrunk/config.toml"
 test "$(readlink -f "${fixture_home}/.config/worktrunk/config.toml")" = \
   "${fixture_repo}/modules/worktrunk/dotfiles/.config/worktrunk/config.toml"
+test "$(readlink -f "${fixture_home}/.cursor/skills/worktrunk-worktrees/SKILL.md")" = \
+  "${fixture_repo}/modules/worktrunk/dotfiles/.cursor/skills/worktrunk-worktrees/SKILL.md"
 
 printf 'worktrunk module validation passed\n'
