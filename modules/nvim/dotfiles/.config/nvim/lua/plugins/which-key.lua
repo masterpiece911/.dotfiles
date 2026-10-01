@@ -9,6 +9,10 @@ return {
   },
   {
     "folke/which-key.nvim",
+    -- kitty-scrollback yank is <leader>y; which-key steals Space if loaded
+    cond = function()
+      return vim.env.KITTY_SCROLLBACK_NVIM ~= "true"
+    end,
     event = "VeryLazy",
     opts = {
       plugins = {
@@ -34,6 +38,9 @@ return {
         border = "single",
       },
       show_help = true,
+      disable = {
+        ft = { "NvimTree", "kitty-scrollback" },
+      },
     },
     config = function(_, opts)
       local wk = require("which-key")
@@ -165,3 +172,6 @@ return {
     end,
   },
 }
+
+
+
