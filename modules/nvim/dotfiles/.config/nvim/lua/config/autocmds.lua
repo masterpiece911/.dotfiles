@@ -42,6 +42,17 @@ autocmd("FileType", {
   end,
 })
 
+autocmd("FileType", {
+  group = augroup("_kitty_scrollback_ui", { clear = true }),
+  pattern = "kitty-scrollback",
+  callback = function()
+    -- Dedicated kitty-scrollback nvim process — hide chrome for a clean pager
+    vim.opt.laststatus = 0
+    vim.opt.showtabline = 0
+    vim.opt.cmdheight = 0
+  end,
+})
+
 -- `nvim <directory>`: cd there, open the file tree, keep terminals on that cwd
 autocmd("VimEnter", {
   group = augroup("_open_directory", { clear = true }),
