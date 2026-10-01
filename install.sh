@@ -39,8 +39,8 @@ Options:
 
 Examples:
   $(basename "$0")                    # installers + stow for all modules
-  $(basename "$0") lvim zsh           # only these modules
-  $(basename "$0") --installers-only lvim
+  $(basename "$0") nvim zsh           # only these modules
+  $(basename "$0") --installers-only nvim
   $(basename "$0") --dry-run --all
 EOF
 }

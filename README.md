@@ -59,7 +59,7 @@ Examples:
 bootstrap.sh
 bootstrap.sh --no-install
 bootstrap.sh -- --dry-run --all
-bootstrap.sh -- --installers-only lvim
+bootstrap.sh -- --installers-only nvim
 ```
 
 ---
@@ -75,7 +75,7 @@ The main provisioning script:
 Options:
 
 * `--all`
-* Module names (e.g. `lvim zsh`)
+* Module names (e.g. `nvim zsh`)
 * `--installers-only`
 * `--no-installers`
 * `--config-only`
@@ -86,8 +86,8 @@ Examples:
 
 ```
 install.sh --all
-install.sh lvim zsh
-install.sh --installers-only lvim
+install.sh nvim zsh
+install.sh --installers-only nvim
 install.sh --dry-run --all
 ```
 
@@ -113,13 +113,16 @@ Example:
 
 ```
 modules/
-  lvim/
+  nvim/
     install.sh
     dotfiles/
-      .config/lvim/...
+      .config/nvim/...
 ```
 
 Modules are independent; adding/removing modules is safe and incremental.
+
+The `lvim` module is **deprecated**; use `nvim` instead (see
+`modules/lvim/DEPRECATED.md`).
 
 ---
 
