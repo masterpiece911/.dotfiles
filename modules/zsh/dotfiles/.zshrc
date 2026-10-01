@@ -9,3 +9,5 @@ if [ -d ~/.zshrc.d ]; then
   done
 fi
 unset rc
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

@@ -1,0 +1,5 @@
+{
+  "name": "worktrunk-workflow",
+  "description": "Routes Cursor branch implementation into Worktrunk-managed worktrees.",
+  "version": "1.0.0"
+}

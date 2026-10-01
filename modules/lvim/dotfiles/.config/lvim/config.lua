@@ -14,11 +14,6 @@ lvim.plugins = {
     end
   },
   {
-    'catppuccin/nvim',
-    name = "catppuccin",
-    priority = 1000,
-  },
-  {
     "kylechui/nvim-surround",
     version = "^3.0.0",
     event = "VeryLazy",
@@ -64,7 +59,7 @@ lvim.plugins = {
   }
 }
 
-lvim.colorscheme = "catppuccin-macchiato"
+lvim.colorscheme = "nordic"
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
