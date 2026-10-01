@@ -1,0 +1,30 @@
+-- Extra plugins from the LunarVim overlay (nordic lives in colorscheme.lua).
+
+return {
+  {
+    "kylechui/nvim-surround",
+    version = "^3.0.0",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({})
+    end,
+  },
+  {
+    "preservim/vim-pencil",
+    cmd = { "Pencil", "PencilSoft", "PencilHard", "PencilToggle" },
+    config = function()
+      vim.g["pencil#wrapModeDefault"] = "soft"
+    end,
+  },
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    event = { "WinLeave" },
+    config = function()
+      require("colorful-winsep").setup({
+        border = "bold",
+        animate = { enabled = "shift" },
+        indicator_for_2wins = { position = "center" },
+      })
+    end,
+  },
+}
