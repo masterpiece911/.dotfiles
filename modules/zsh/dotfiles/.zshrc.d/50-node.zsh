@@ -1,2 +1,2 @@
-export NODE_EXTRA_CA_CERTS="/home/sahi_no/certs/franka-ca.crt"
+export NODE_EXTRA_CA_CERTS="$HOME/certs/franka-ca.crt"
 

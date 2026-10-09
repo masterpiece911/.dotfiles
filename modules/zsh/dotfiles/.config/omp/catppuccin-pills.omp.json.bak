@@ -46,7 +46,7 @@
           "style": "plain",
           "foreground": "p:crust",
           "background": "p:red",
-          "template": "{{ if eq .UserName \"sahi_no\" }}{{ else }}{{ .UserName }}{{ end }} "
+          "template": "{{ if eq .UserName \"noyan_sahin\" }}{{ else }}{{ .UserName }}{{ end }} "
         },
         {
           "type": "text",

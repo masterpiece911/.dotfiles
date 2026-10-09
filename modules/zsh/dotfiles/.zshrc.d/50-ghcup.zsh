@@ -1,2 +1,2 @@
-[ -f "/home/sahi_no/.ghcup/env" ] && source "/home/sahi_no/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
