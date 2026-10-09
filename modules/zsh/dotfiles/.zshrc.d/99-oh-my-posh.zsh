@@ -1,1 +1,1 @@
-eval "$(oh-my-posh init zsh --config ~/.config/omp/catppuccin-pills.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.config/omp/nord-pills.omp.json)"
