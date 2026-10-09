@@ -34,11 +34,8 @@ map("n", "<C-q>", function()
   vim.cmd("copen")
 end, opts)
 
--- Terminal window navigation
-map("t", "<C-h>", "<C-\\><C-N><C-w>h", { silent = true })
-map("t", "<C-j>", "<C-\\><C-N><C-w>j", { silent = true })
-map("t", "<C-k>", "<C-\\><C-N><C-w>k", { silent = true })
-map("t", "<C-l>", "<C-\\><C-N><C-w>l", { silent = true })
+-- Terminal window navigation is set per-buffer in plugins/terminal.lua
+-- (skipped for lazygit and other TUIs that need those keys).
 
 -- Better indenting
 map("v", "<", "<gv", opts)

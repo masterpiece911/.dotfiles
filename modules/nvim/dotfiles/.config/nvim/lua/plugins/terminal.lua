@@ -33,8 +33,17 @@ return {
 
       local Terminal = require("toggleterm.terminal").Terminal
 
-      local function set_terminal_keymaps()
-        local opts = { buffer = 0 }
+      local function set_terminal_keymaps(ev)
+        local opts = { buffer = ev.buf }
+        local bufname = vim.api.nvim_buf_get_name(ev.buf)
+        -- TUIs own Esc / hjkl; don't remap them (leave terminal with Ctrl-\ Ctrl-n)
+        local is_tui = bufname:find("lazygit", 1, true)
+          or bufname:find("k9s", 1, true)
+          or bufname:find("htop", 1, true)
+          or bufname:find("btop", 1, true)
+        if is_tui then
+          return
+        end
         vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
         vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
         vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)

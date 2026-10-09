@@ -101,7 +101,20 @@ return {
           "<leader>gg",
           function()
             local Terminal = require("toggleterm.terminal").Terminal
-            local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+            local lazygit = Terminal:new({
+              cmd = "lazygit",
+              hidden = true,
+              direction = "float",
+              -- Ensure Esc reaches lazygit even if TermOpen naming is odd
+              on_open = function(term)
+                pcall(vim.keymap.del, "t", "<esc>", { buffer = term.bufnr })
+                pcall(vim.keymap.del, "t", "<C-h>", { buffer = term.bufnr })
+                pcall(vim.keymap.del, "t", "<C-j>", { buffer = term.bufnr })
+                pcall(vim.keymap.del, "t", "<C-k>", { buffer = term.bufnr })
+                pcall(vim.keymap.del, "t", "<C-l>", { buffer = term.bufnr })
+                vim.cmd("startinsert")
+              end,
+            })
             lazygit:toggle()
           end,
           desc = "Lazygit",
