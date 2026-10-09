@@ -4,11 +4,9 @@ Vanilla Neovim configuration ported from LunarVim 1.4 plus former
 `~/.config/lvim` overlays. Managed by the `nvim` dotfiles module and stowed
 to `~/.config/nvim`.
 
-The `lvim` module is deprecated; use this config via `nvim`.
-
 ## Requirements
 
-- **Neovim 0.10+** (0.12.x via the module installer)
+- **Neovim 0.12+**
 - `git`, `make` (for telescope-fzf-native), `rg` (ripgrep), a Nerd Font
 - Optional: `lazygit`, `prettier` / `eslint`, `fourmolu`, cucumber language server
 
@@ -65,7 +63,6 @@ nvim/
   ftplugin/         format-on-write helpers
   luasnippets/
   lsp-settings/
-  legacy/lvim/      cleaned modular LunarVim config (drop-in, not active)
 ```
 
 Personal taste (colorscheme, prettier args, cucumber, telescope layout, Find

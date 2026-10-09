@@ -121,9 +121,6 @@ modules/
 
 Modules are independent; adding/removing modules is safe and incremental.
 
-The `lvim` module is **deprecated**; use `nvim` instead (see
-`modules/lvim/DEPRECATED.md`).
-
 ---
 
 ## Backups
