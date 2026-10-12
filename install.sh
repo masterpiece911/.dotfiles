@@ -5,6 +5,10 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 MODULES_DIR="${DOTFILES_DIR}/modules"
 TARGET_DIR="${HOME}"
 
+# Directories that several modules stow files into. Stow must not fold them
+# into a single directory symlink, or the second module's stow conflicts.
+SHARED_DIRS=(".zshrc.d")
+
 # ===================================================
 # Logging & helpers
 # ===================================================
@@ -188,14 +192,23 @@ stow_module_config() {
     backup_if_needed "${TARGET_DIR}/${rel}"
   done
 
+  local -a stow_args=(-R --target="${TARGET_DIR}")
+  local shared
+  for shared in "${SHARED_DIRS[@]}"; do
+    if [ -d "${dot_dir}/${shared}" ]; then
+      stow_args+=(--no-folding)
+      break
+    fi
+  done
+
   if $dry_run; then
-    drylog "Would stow config for ${module}"
+    drylog "Would stow config for ${module} (stow ${stow_args[*]} .)"
     return
   fi
 
   (
     cd "$dot_dir"
-    if ! stow -R --target="${TARGET_DIR}" .; then
+    if ! stow "${stow_args[@]}" .; then
       log "stow failed for module '${module}'"
       failed_configs+=("$module")
       return 1
