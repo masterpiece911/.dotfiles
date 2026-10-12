@@ -1,15 +1,28 @@
 ---
 name: worktrunk-worktrees
-description: Creates or selects Worktrunk-managed git worktrees before feature, bugfix, refactor, or other branch implementation. Use before editing files for branch-scoped work, when starting work on a branch, or when the user asks for an isolated worktree.
+description: Creates or selects Worktrunk-managed git worktrees before feature, bugfix, refactor, or other branch implementation in repositories whose git remote is under the FrankaDev GitLab group. Use before editing files for branch-scoped work in a FrankaDev repository, when starting work on a branch there, or when the user asks for an isolated worktree.
 ---
 
 # Worktrunk Worktrees
 
-Perform branch implementation only in a Worktrunk-managed linked worktree.
-Read-only investigation and planning may happen before isolation.
+Perform branch implementation in FrankaDev repositories only in a
+Worktrunk-managed linked worktree. Read-only investigation and planning may
+happen before isolation.
 
 Worktrees are created under `~/projects/worktrees/<repo>/<sanitized-branch>/`
 via the user Worktrunk config.
+
+## 0. Check scope
+
+This skill applies only when at least one remote URL has `frankadev` as its
+top-level group (for example `git@gitlab.franka.de:frankadev/HLSW/foo.git`):
+
+```bash
+git remote -v | grep -Eiq '[:/]frankadev/' && echo in-scope || echo out-of-scope
+```
+
+If the repository is out of scope, stop following this skill and edit in the
+current checkout, unless the user explicitly asked for an isolated worktree.
 
 ## 1. Detect existing isolation
 
