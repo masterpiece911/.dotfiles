@@ -16,4 +16,5 @@ rshell() {
 alias ru='r up dev'
 alias rd='r down'
 alias rcli='r cli'
+alias redit='${EDITOR:-vi} ~/projects/race/franka/race/docker-compose/dev.yaml'
 
