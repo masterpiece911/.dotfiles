@@ -3,12 +3,16 @@ local function on_attach(client, bufnr)
     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, noremap = true, silent = true, desc = desc })
   end
 
-  map("n", "K", vim.lsp.buf.hover, "Show hover")
+  map("n", "K", function()
+    vim.lsp.buf.hover({ border = "rounded" })
+  end, "Show hover")
   map("n", "gd", vim.lsp.buf.definition, "Goto definition")
   map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")
   map("n", "gr", vim.lsp.buf.references, "Goto references")
   map("n", "gI", vim.lsp.buf.implementation, "Goto Implementation")
-  map("n", "gs", vim.lsp.buf.signature_help, "Show signature help")
+  map("n", "gs", function()
+    vim.lsp.buf.signature_help({ border = "rounded" })
+  end, "Show signature help")
   map("n", "gl", function()
     local float = vim.diagnostic.config().float
     local config = type(float) == "table" and vim.deepcopy(float) or {}
@@ -39,6 +43,11 @@ local function server_opts(extra)
 end
 
 local function setup_lspconfig_server(name, extra)
+  if vim.lsp.config and vim.lsp.enable then
+    vim.lsp.config(name, server_opts(extra))
+    vim.lsp.enable(name)
+    return
+  end
   local lspconfig = require("lspconfig")
   if lspconfig[name] then
     lspconfig[name].setup(server_opts(extra))
@@ -73,6 +82,7 @@ return {
 
       local mason_lspconfig = require("mason-lspconfig")
       mason_lspconfig.setup({
+        automatic_enable = false,
         automatic_installation = false,
         ensure_installed = {},
       })
@@ -122,9 +132,6 @@ return {
 
       require("user.lsp").setup_cucumber(setup_lspconfig_server)
 
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-      vim.lsp.handlers["textDocument/signatureHelp"] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
     end,
   },
   {
