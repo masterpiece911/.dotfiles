@@ -193,14 +193,17 @@ stow_module_config() {
     return
   fi
 
-  (
+  # Modules use separate stow directories. Keep shared target directories real
+  # rather than folding them into a symlink another module cannot safely unfold.
+  if ! (
     cd "$dot_dir"
-    if ! stow -R --target="${TARGET_DIR}" .; then
-      log "stow failed for module '${module}'"
-      failed_configs+=("$module")
-      return 1
-    fi
-  )
+    stow -R --no-folding --target="${TARGET_DIR}" .
+  ); then
+    # Record failures in the parent shell so the final summary and status agree.
+    log "stow failed for module '${module}'"
+    failed_configs+=("$module")
+    return 1
+  fi
 }
 
 run_module_installer() {
@@ -301,4 +304,3 @@ main() {
 }
 
 main "$@"
-
