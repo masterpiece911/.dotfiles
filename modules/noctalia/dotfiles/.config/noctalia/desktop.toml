@@ -1,0 +1,400 @@
+# Desktop defaults migrated from Noctalia v5.2.1 (settings schema 14).
+# Live Settings UI changes in ~/.local/state/noctalia/settings.toml override these.
+# Calendar accounts, avatar, histories and credentials deliberately remain local.
+
+[bar.main]
+background_opacity = 0.97999997809529305
+center = [ "workspaces", "media", "audio_visualizer" ]
+end = [
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "keyboard_layout",
+    "volume",
+    "brightness",
+    "battery",
+    "tray",
+    "clock"
+]
+margin_edge = 16
+margin_ends = 16
+panel_overlap = 0
+radius = 32
+start = [ "session", "control-center", "launcher", "wallpaper", "taskbar" ]
+widget_spacing = 8
+
+[calendar]
+enabled = true
+
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[dock]
+concave_edge_corners = false
+launcher_custom_image_colorize = true
+launcher_icon = "galaxy"
+launcher_position = "start"
+layer = "overlay"
+position = "top"
+reserve_space = false
+show_dots = true
+smart_auto_hide = true
+
+[hot_corners]
+enabled = true
+
+    [hot_corners.top_left]
+    action = "window_switcher"
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[location]
+address = "Munich, Germany"
+
+[lockscreen]
+transition = [ "zoom" ]
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-login-box@DP-2",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002",
+    "lockscreen-widget-0000000000000004",
+    "lockscreen-widget-0000000000000005",
+    "lockscreen-widget-0000000000000006",
+    "lockscreen-widget-0000000000000007"
+]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 128.0
+    box_width = 832.0
+    cx = 1888.0
+    cy = 1440.0
+    output = "DP-2"
+    placement_height = 1600.0
+    placement_width = 3840.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 32.0
+        center_password_text = true
+        input_opacity = 1.0
+        input_radius = 32.0
+        layout = "regular"
+        show_caps_lock = false
+        show_keyboard_layout = false
+        show_login_button = false
+        show_media = false
+        show_session_buttons = true
+        show_unlock_hint = false
+        show_weather = false
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 128.0
+    box_width = 768.0
+    cx = 720.0
+    cy = 800.0
+    output = "eDP-1"
+    placement_height = 960.0
+    placement_width = 1440.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 32.0
+        center_password_text = true
+        input_opacity = 1.0
+        input_radius = 32.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = false
+        show_login_button = false
+        show_media = false
+        show_session_buttons = true
+        show_unlock_hint = false
+        show_weather = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 192.0
+    box_width = 384.0
+    cx = 256.0
+    cy = 192.0
+    output = "DP-2"
+    placement_height = 1600.0
+    placement_width = 3840.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = true
+        background_radius = 32
+        clock_style = "digital"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 64.0
+    box_width = 832.0
+    cx = 1888.0
+    cy = 1328.0
+    output = "DP-2"
+    placement_height = 1600.0
+    placement_width = 3840.0
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        background = true
+        background_radius = 32
+        bands = 80
+        color_2 = "tertiary"
+        reversed = false
+        show_when_idle = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    box_height = 192.0
+    box_width = 384.0
+    cx = 256.0
+    cy = 448.0
+    output = "DP-2"
+    placement_height = 1600.0
+    placement_width = 3840.0
+    rotation = 0.0
+    type = "weather"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
+        background_radius = 32
+        forecast_days = 1
+        show_forecast = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+    box_height = 128.0
+    box_width = 320.0
+    cx = 240.0
+    cy = 159.0
+    output = "eDP-1"
+    placement_height = 960.0
+    placement_width = 1440.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+        background_radius = 32
+        shadow = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
+    box_height = 128.0
+    box_width = 320.0
+    cx = 240.0
+    cy = 320.0
+    output = "eDP-1"
+    placement_height = 960.0
+    placement_width = 1440.0
+    rotation = 0.0
+    type = "weather"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000006.settings]
+        background = true
+        background_radius = 32
+        shadow = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    box_height = 64.0
+    box_width = 768.0
+    cx = 720.0
+    cy = 688.0
+    output = "eDP-1"
+    placement_height = 960.0
+    placement_width = 1440.0
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
+        background_radius = 32
+        bands = 80
+        centered = true
+        color_2 = "tertiary"
+        mirrored = true
+        show_when_idle = true
+
+[nightlight]
+enabled = true
+
+[notification]
+follow_focused_output = true
+layer = "overlay"
+offset_x = 64
+offset_y = 32
+position = "bottom_right"
+
+[osd]
+follow_focused_output = true
+offset_x = 64
+offset_y = 64
+
+[plugin_settings."noctalia/screen_recorder"]
+directory = "/home/masterpiece/Videos/Screencasts"
+video_source = "region"
+
+[plugins]
+enabled = [ "noctalia/wallpaper_depth", "noyan/display-mover", "noyan/media-key-guide", "noyan/projector" ]
+
+[shell]
+
+    [shell.keyboard_layout.custom_labels]
+    "English (US)" = "EN"
+    German = "DE"
+    Turkish = "TR"
+
+    [shell.panel]
+    launcher_placement = "attached"
+
+    [shell.screen_corners]
+    enabled = true
+
+    [shell.screenshot]
+    annotate = true
+    confirm_region = true
+    directory = "/home/masterpiece/Pictures/Screenshots"
+
+    [shell.session]
+    grid = true
+    grid_columns = 2
+
+        [[shell.session.actions]]
+        action = "lock"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "1"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "logout"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "2"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "reboot"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "3"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "shutdown"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "4"
+        variant = "destructive"
+
+        [[shell.session.actions]]
+        action = "lock_and_suspend"
+        countdown_seconds = 0.0
+        enabled = false
+        shortcut = "5"
+        variant = "default"
+
+[theme]
+builtin = "Nord"
+mode = "auto"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "hyprland", "kitty" ]
+    community_ids = [ "opencode", "zen-browser", "neovim", "lazygit" ]
+
+[wallpaper]
+directory = "/home/masterpiece/Pictures/Wallpapers"
+transition = [ "stripes" ]
+transition_on_startup = true
+
+    [wallpaper.default]
+    path = "/home/masterpiece/Pictures/Wallpapers/marek-piwnicki-DgdJ_0us5SE-unsplash.jpg"
+
+    [wallpaper.last]
+    path = "/home/masterpiece/Pictures/Wallpapers/marek-piwnicki-DgdJ_0us5SE-unsplash.jpg"
+
+    [wallpaper.monitors.DP-2]
+    path = "/home/masterpiece/Pictures/Wallpapers/simon-twukN12EN7c-unsplash.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/masterpiece/Pictures/Wallpapers/marek-piwnicki-DgdJ_0us5SE-unsplash.jpg"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/masterpiece/Pictures/Wallpapers/simon-twukN12EN7c-unsplash.jpg"
+    theme_mode = "auto"
+    wallpaper_scheme = "m3-content"
+
+[widget.audio_visualizer]
+bands = 64
+color_2 = "tertiary"
+interactive = false
+mirrored = false
+width = 128
+
+[widget.control-center]
+enabled = false
+glyph = "topology-star-3"
+
+[widget.launcher]
+enabled = false
+
+[widget.media]
+hide_when_no_media = true
+rotate_album_art = true
+show_progress = true
+title_scroll = "always"
+
+[widget.network]
+show_label = false
+
+[widget.taskbar]
+only_active_workspace = true
+show_active_indicator = false
+show_window_title = true
+
+[widget.wallpaper]
+enabled = false
+
+[widget.workspaces]
+show_icons = false

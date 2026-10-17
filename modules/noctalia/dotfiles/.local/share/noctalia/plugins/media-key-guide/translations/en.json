@@ -1,0 +1,4 @@
+{
+  "settings.duration.label": "Hide delay (ms)",
+  "settings.duration.description": "Time to keep the guide visible after the latest media-key press."
+}

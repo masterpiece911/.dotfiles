@@ -1,0 +1,33 @@
+id = "noyan/media-key-guide"
+name = "Media Key Guide"
+version = "1.1.0"
+plugin_api = 30
+author = "noyan"
+license = "MIT"
+description = "A short-lived, non-focus-stealing guide to the Framework 13 media row."
+icon = "keyboard"
+
+[[setting]]
+key = "duration_ms"
+type = "int"
+label_key = "settings.duration.label"
+description_key = "settings.duration.description"
+default = 2100
+min = 300
+max = 10000
+
+[[service]]
+id = "events"
+entry = "events.luau"
+
+[[panel]]
+id = "guide"
+entry = "panel.luau"
+# 1440 logical-pixel laptop display minus 80 px on each side.
+width = 1280
+height = 80
+position = "bottom_center"
+layer = "overlay"
+keyboard_focus = "none"
+dismiss_on_outside_click = false
+persistent = true

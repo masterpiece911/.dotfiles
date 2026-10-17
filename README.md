@@ -124,6 +124,18 @@ Modules are independent; adding/removing modules is safe and incremental.
 The `lvim` module is **deprecated**; use `nvim` instead (see
 `modules/lvim/DEPRECATED.md`).
 
+### Desktop modules
+
+* [`hypr`](modules/hypr/README.md): Hyprland configuration, display/lid helpers,
+  and 100×30-cell floating Kitty shortcuts.
+* [`noctalia`](modules/noctalia/README.md): shell settings, desktop bindings,
+  custom plugins, and application theme templates. Private runtime state and
+  generated palettes stay local.
+
+The current desktop uses both modules plus `kitty`. Initial setup:
+`./install.sh hypr noctalia kitty`. Subsequent configuration refreshes:
+`./install.sh --config-only hypr noctalia kitty`.
+
 ---
 
 ## Backups
@@ -166,4 +178,3 @@ install.sh --dry-run [modules...]
 ## See Also
 
 * [`AGENTS.md`](./AGENTS.md): automation-oriented rules and expectations for interacting with this repo.
-
