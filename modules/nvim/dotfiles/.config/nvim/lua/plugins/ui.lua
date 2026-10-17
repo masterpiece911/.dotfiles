@@ -63,8 +63,8 @@ return {
         options = {
           mode = "buffers",
           numbers = "none",
-          close_command = "BufferKill",
-          right_mouse_command = "BufferKill",
+          close_command = "BufferKill %d",
+          right_mouse_command = "BufferKill %d",
           middle_mouse_command = nil,
           indicator = { style = "icon", icon = "▎" },
           buffer_close_icon = "󰅖",

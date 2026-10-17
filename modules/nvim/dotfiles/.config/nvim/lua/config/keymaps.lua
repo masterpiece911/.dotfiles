@@ -49,8 +49,8 @@ map("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap
 map("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
 
 --- Close buffer without closing the window (LunarVim BufferKill)
-vim.api.nvim_create_user_command("BufferKill", function()
-  local bufnr = vim.api.nvim_get_current_buf()
+vim.api.nvim_create_user_command("BufferKill", function(args)
+  local bufnr = tonumber(args.args) or vim.api.nvim_get_current_buf()
   local bufinfo = vim.fn.getbufinfo(bufnr)[1]
   if bufinfo == nil then
     return
@@ -59,20 +59,31 @@ vim.api.nvim_create_user_command("BufferKill", function()
   if vim.bo[bufnr].modified then
     local choice = vim.fn.confirm(("Save changes to %q?"):format(bufinfo.name), "&Yes\n&No\n&Cancel")
     if choice == 1 then
-      vim.cmd("write")
+      vim.api.nvim_buf_call(bufnr, function()
+        vim.cmd("write")
+      end)
     elseif choice == 0 or choice == 3 then
       return
     end
   end
 
-  local alt = vim.fn.bufnr("#")
-  if alt > 0 and vim.api.nvim_buf_is_loaded(alt) then
-    vim.cmd("buffer #")
-  else
-    vim.cmd("bprevious")
+  local replacement = vim.fn.bufnr("#")
+  if replacement == bufnr or not vim.api.nvim_buf_is_valid(replacement) or not vim.bo[replacement].buflisted then
+    replacement = nil
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if buf ~= bufnr and vim.bo[buf].buflisted then
+        replacement = buf
+        break
+      end
+    end
   end
 
-  if vim.api.nvim_buf_is_valid(bufnr) then
-    pcall(vim.cmd, "bdelete! " .. bufnr)
+  -- Replace the buffer in every window so deleting it preserves the layout.
+  for _, win in ipairs(vim.fn.win_findbuf(bufnr)) do
+    replacement = replacement or vim.api.nvim_create_buf(true, false)
+    vim.api.nvim_win_set_buf(win, replacement)
   end
-end, {})
+  if vim.api.nvim_buf_is_valid(bufnr) then
+    vim.api.nvim_buf_delete(bufnr, { force = true })
+  end
+end, { nargs = "?" })

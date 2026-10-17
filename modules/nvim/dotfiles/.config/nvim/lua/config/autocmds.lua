@@ -31,7 +31,11 @@ autocmd("FileType", {
 autocmd("VimResized", {
   group = augroup("_auto_resize", { clear = true }),
   pattern = "*",
-  command = "tabdo wincmd =",
+  callback = function()
+    local current_tab = vim.api.nvim_get_current_tabpage()
+    vim.cmd("tabdo wincmd =")
+    vim.api.nvim_set_current_tabpage(current_tab)
+  end,
 })
 
 autocmd("FileType", {
