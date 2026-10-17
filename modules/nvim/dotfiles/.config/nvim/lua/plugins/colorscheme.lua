@@ -1,13 +1,13 @@
 local prefs = require("user.preferences")
 
 return {
-  {
-    "AlexvZyl/nordic.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("nordic").load()
-      vim.cmd.colorscheme(prefs.colorscheme)
-    end,
-  },
+  -- {
+  --   "AlexvZyl/nordic.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("nordic").load()
+  --     vim.cmd.colorscheme(prefs.colorscheme)
+  --   end,
+  -- },
 }
