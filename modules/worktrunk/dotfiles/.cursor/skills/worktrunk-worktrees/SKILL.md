@@ -12,6 +12,15 @@ happen before isolation.
 Worktrees are created under `~/projects/worktrees/<repo>/<sanitized-branch>/`
 via the user Worktrunk config.
 
+## Run outside the sandbox
+
+`wt` never works inside the agent sandbox: it writes outside the workspace
+(the worktree directory and the repository's shared `.git`) and may run hooks
+that need network access. Always run `wt` commands outside the sandbox — in
+Cursor, call the Shell tool with `required_permissions: ["all"]` from the first
+attempt. Do not try it sandboxed first, and do not treat a sandboxed failure as
+a real Worktrunk error.
+
 ## 0. Check scope
 
 This skill applies only when at least one remote URL has `frankadev` as its
@@ -53,7 +62,7 @@ A submodule is not a linked worktree. Continue to the next section when
 
 ## 3. Create or select with Worktrunk
 
-If the branch already exists locally or remotely, select it:
+Run these commands outside the sandbox (see above). If the branch already exists locally or remotely, select it:
 
 ```bash
 wt switch "$branch" --format json --no-cd
