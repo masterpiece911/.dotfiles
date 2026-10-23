@@ -6,8 +6,8 @@ Migrated from the working Noctalia v5.2.1 desktop. This module contains:
   lock-screen layout, idle behavior, enabled plugins and theme selections.
 - Hyprland shell bindings, the passive Framework media-key guide bindings,
   and screenshot/browser/shortcut-menu utilities.
-- Custom **Display Mover**, **Media Key Guide**, and **Project** plugins under
-  `~/.local/share/noctalia/plugins/`, including Project's rollback tests.
+- Custom **Display Mover**, **Media Key Guide**, **Project**, and **Hyprland Layouts**
+  plugins under `~/.local/share/noctalia/plugins/`, including helper tests.
 - The active OpenCode, Zen Browser, Neovim and Lazygit community templates,
   including the customized apply hooks, at their existing state-directory paths.
 
@@ -28,6 +28,22 @@ noctalia msg config-reload
 The module installer only seeds Nord fallback files for Hyprland and Kitty if
 they are missing. It never overwrites existing generated colors or downloads
 software. Run installers on initial setup before using config-only updates.
+
+## Hyprland layout chooser
+
+**Super+T** opens a visual chooser for **Dwindle** and five **Master** presets
+(left, right, top, bottom, centered), with
+miniature window diagrams and a current-layout indicator. Click a card, use
+arrows, press **1–6**, or repeat **Super+T** to switch layouts live while the
+chooser stays open. Enter or Esc dismisses it, keeping the chosen layout. Only available
+built-in layouts can be selected. Changes are session-wide and runtime-only;
+Hyprland config reload restores configured defaults. Master presets override
+workspace orientations for the session; centered Master needs at least three
+tiled windows by default. No Hyprland upgrade or extra plugins are required.
+
+On an existing desktop, after stowing, enable it once with
+`noctalia msg plugins enable noyan/layout-picker` (runtime settings override the
+tracked plugin list).
 
 ## Settings and privacy
 
@@ -58,4 +74,6 @@ Validation:
 noctalia config validate
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
   -s modules/noctalia/dotfiles/.local/share/noctalia/plugins/projector -p 'test_*.py'
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+  -s modules/noctalia/dotfiles/.local/share/noctalia/plugins/layout-picker -p 'test_*.py'
 ```

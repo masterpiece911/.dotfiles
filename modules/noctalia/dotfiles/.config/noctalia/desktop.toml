@@ -273,7 +273,7 @@ directory = "/home/masterpiece/Videos/Screencasts"
 video_source = "region"
 
 [plugins]
-enabled = [ "noctalia/wallpaper_depth", "noyan/display-mover", "noyan/media-key-guide", "noyan/projector" ]
+enabled = [ "noctalia/wallpaper_depth", "noyan/display-mover", "noyan/media-key-guide", "noyan/projector", "noyan/layout-picker" ]
 
 [shell]
 

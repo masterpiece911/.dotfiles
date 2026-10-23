@@ -28,7 +28,11 @@ class DesktopModuleTests(unittest.TestCase):
                          '.config/hypr/scripts/desktop-utilities.py',
                          '.config/hypr/scripts/float-window.py',
                          '.config/noctalia/desktop.toml', '.config/kitty/kitty.conf',
-                         '.local/share/noctalia/plugins/projector/projector.py']:
+                         '.local/share/noctalia/plugins/projector/projector.py',
+                         '.local/share/noctalia/plugins/layout-picker/plugin.toml',
+                         '.local/share/noctalia/plugins/layout-picker/panel.luau',
+                         '.local/share/noctalia/plugins/layout-picker/events.luau',
+                         '.local/share/noctalia/plugins/layout-picker/layouts.py']:
             self.assertTrue((self.home / relative).resolve().is_relative_to(REPO), relative)
         palette = self.home / '.config/hypr/noctalia.conf'
         self.assertTrue(palette.is_file())

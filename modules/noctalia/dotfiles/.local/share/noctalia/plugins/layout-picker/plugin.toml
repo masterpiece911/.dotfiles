@@ -1,0 +1,23 @@
+id = "noyan/layout-picker"
+name = "Hyprland Layouts"
+version = "1.2.0"
+plugin_api = 30
+author = "noyan"
+license = "MIT"
+description = "Choose a Hyprland tiling layout with miniature window previews."
+icon = "layout"
+dependencies = ["python3", "hyprctl"]
+
+[[service]]
+id = "events"
+entry = "events.luau"
+
+[[panel]]
+id = "chooser"
+entry = "panel.luau"
+width = 800
+height = 570
+placement = "floating"
+position = "center"
+keyboard_focus = "exclusive"
+capture_keys = ["Left", "Right", "Up", "Down", "Return", "1", "2", "3", "4", "5", "6"]
