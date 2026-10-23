@@ -31,7 +31,11 @@ autocmd("FileType", {
 autocmd("VimResized", {
   group = augroup("_auto_resize", { clear = true }),
   pattern = "*",
-  command = "tabdo wincmd =",
+  callback = function()
+    local current_tab = vim.api.nvim_get_current_tabpage()
+    vim.cmd("tabdo wincmd =")
+    vim.api.nvim_set_current_tabpage(current_tab)
+  end,
 })
 
 autocmd("FileType", {
@@ -98,5 +102,30 @@ if prefs.format_on_save then
         end,
       })
     end,
+  })
+end
+
+-- Remove terminal padding in Neovim so the statusline reaches the window edges.
+local kitty_window_id = vim.env.KITTY_WINDOW_ID
+local kitty_socket = vim.env.KITTY_LISTEN_ON
+if kitty_window_id and kitty_socket and vim.fn.executable("kitten") == 1 then
+  local kitty_padding_group = augroup("_kitty_padding", { clear = true })
+  local function set_kitty_padding(value)
+    vim.system({
+      "kitten", "@", "--to", kitty_socket,
+      "set-spacing", "--match", "id:" .. kitty_window_id,
+      "padding=" .. value,
+    }):wait(1000)
+  end
+
+  autocmd("VimEnter", {
+    group = kitty_padding_group,
+    desc = "Remove Kitty padding while editing",
+    callback = function() set_kitty_padding("0") end,
+  })
+  autocmd("VimLeavePre", {
+    group = kitty_padding_group,
+    desc = "Restore configured Kitty padding",
+    callback = function() set_kitty_padding("default") end,
   })
 end

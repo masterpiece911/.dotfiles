@@ -1,0 +1,72 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/submap"
+  ],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "network",
+    "mpris",
+    "hyprland/language",
+    "backlight",
+    "wireplumber",
+    "battery",
+    "clock"
+  ],
+  "hyprland/workspaces": {
+    "on-click": "activate"
+  },
+  "cpu": {
+    "format": "CPU {usage}%",
+    "interval": 2,
+    "states": {
+      "warning": 80,
+      "critical": 95
+    }
+  },
+  "memory": {
+    "format": "RAM {percentage}%",
+    "states": {
+      "warning": 80,
+      "critical": 95
+    }
+  },
+  "network": {
+    "format-wifi": "{essid} {signalStrength}%",
+    "format-ethernet": "{ifname}",
+    "format-disconnected": "offline"
+  },
+  "mpris": {
+    "format": "{artist} \u2014 {title}",
+    "max-length": 35
+  },
+  "hyprland/language": {
+    "keyboard-name": "at-translated-set-2-keyboard",
+    "format": "{short}",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+  },
+  "backlight": {
+    "format": "Light {percent}%",
+    "on-scroll-up": "python3 ~/.config/hypr/brightness.py up",
+    "on-scroll-down": "python3 ~/.config/hypr/brightness.py down"
+  },
+  "wireplumber": {
+    "format": "Vol {volume}%",
+    "format-muted": "muted",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "battery": {
+    "format": "Bat {capacity}%",
+    "states": {
+      "warning": 29,
+      "critical": 9
+    }
+  },
+  "clock": {
+    "format": "{:%a %d %b  %H:%M}"
+  }
+}

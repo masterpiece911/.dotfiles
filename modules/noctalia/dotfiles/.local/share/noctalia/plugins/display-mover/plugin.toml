@@ -1,0 +1,19 @@
+id = "noyan/display-mover"
+name = "Display Mover"
+version = "1.1.0"
+plugin_api = 24
+author = "noyan"
+license = "MIT"
+description = "Move the active workspace with a native, theme-aware monitor grid."
+icon = "device-desktop"
+dependencies = ["python3", "hyprctl"]
+
+[[panel]]
+id = "picker"
+entry = "panel.luau"
+width = 700
+height = 420
+placement = "attached"
+position = "auto"
+keyboard_focus = "exclusive"
+capture_keys = ["Left", "Right", "Up", "Down", "Return", "1", "2", "3", "4", "5", "6", "7", "8", "9"]

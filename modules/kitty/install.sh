@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-KITTY_VERSION="0.49.1"
+KITTY_VERSION="0.49.2"
 INSTALLER_URL="https://sw.kovidgoyal.net/kitty/installer.sh"
 KITTY_APP="${HOME}/.local/kitty.app"
 LOCAL_BIN="${HOME}/.local/bin"

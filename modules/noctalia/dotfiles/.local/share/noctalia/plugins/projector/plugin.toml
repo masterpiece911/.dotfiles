@@ -1,0 +1,19 @@
+id = "noyan/projector"
+name = "Project"
+version = "1.0.0"
+plugin_api = 24
+author = "noyan"
+license = "MIT"
+description = "Windows-style display projection choices for Hyprland, with automatic rollback."
+icon = "presentation"
+dependencies = ["python3", "hyprctl"]
+
+[[panel]]
+id = "chooser"
+entry = "panel.luau"
+width = 440
+height = 440
+placement = "floating"
+position = "center_right"
+keyboard_focus = "exclusive"
+capture_keys = ["1", "2", "3", "4"]

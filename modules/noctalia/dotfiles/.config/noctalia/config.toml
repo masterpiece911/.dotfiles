@@ -1,0 +1,23 @@
+[shell]
+font_family = "Paper Mono"
+polkit_agent = true
+
+[bar.main]
+position = "top"
+margin_ends = 12
+
+[wallpaper]
+enabled = true
+
+[wallpaper.default]
+path = "/home/masterpiece/.config/sway/webb_telescope.jpg"
+
+[brightness]
+enable_ddcutil = true
+
+[brightness.monitor.DP-2]
+backend = "ddcutil"
+
+[brightness.monitor.eDP-1]
+backend = "backlight"
+backlight_device = "amdgpu_bl1"
